@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { LogoBlack } from '../assets/img';
 
 const Header = () => {
     const location = useLocation();
@@ -14,7 +15,7 @@ const Header = () => {
                         <div className="nav-inner">
                             <nav className="navbar navbar-expand-lg">
                                 <a className="navbar-brand" href="/">
-                                    <img src="assets/images/logo/logo.svg" alt="Logo" />
+                                    <img src={LogoBlack} alt="Logo" style={{ width: '80px' }} />
                                 </a>
                                 <button className="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="toggler-icon"></span>
