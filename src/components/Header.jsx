@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { LogoBlack } from '../assets/img';
 
 const Header = () => {
     const location = useLocation();
+    const [isNavExpanded, setIsNavExpanded] = useState(false);
 
     const isActive = (path) => location.pathname === path;
+
+    const toggleNavbar = () => {
+        setIsNavExpanded(!isNavExpanded);
+    };
 
     return (
         <header className="header navbar-area">
@@ -17,24 +22,32 @@ const Header = () => {
                                 <a className="navbar-brand" href="/">
                                     <img src={LogoBlack} alt="Logo" style={{ width: '80px' }} />
                                 </a>
-                                <button className="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <button className={`navbar-toggler mobile-menu-btn ${isNavExpanded ? 'active' : 'collapsed'}`}
+                                    type="button"
+                                    onClick={toggleNavbar}
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#navbarSupportedContent"
+                                    aria-controls="navbarSupportedContent"
+                                    aria-expanded={isNavExpanded ? "true" : "false"}>
                                     <span className="toggler-icon"></span>
                                     <span className="toggler-icon"></span>
                                     <span className="toggler-icon"></span>
                                 </button>
-                                <div className="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <div className={`collapse navbar-collapse sub-menu-bar ${isNavExpanded ? 'show' : 'collapse'}`}
+                                    id="navbarSupportedContent"
+                                    style={isNavExpanded ? { height: '253px' } : {}}>
                                     <ul id="nav" className="navbar-nav ms-auto">
                                         <li className='nav-item'>
-                                            <a className={`dd-menu collapsed ${isActive('/') ? 'active' : ''}`} href="/">Home</a>
+                                            <a className={`${isActive('/') ? 'active' : 'collapsed'}`} href="/">Home</a>
                                         </li>
                                         <li className='nav-item'>
-                                            <a className={`dd-menu collapsed ${isActive('/who-we-are') ? 'active' : ''}`} href="/who-we-are">Who We Are</a>
+                                            <a className={`${isActive('/who-we-are') ? 'active' : 'collapsed'}`} href="/who-we-are">Who We Are</a>
                                         </li>
                                         <li className='nav-item'>
-                                            <a className={`dd-menu collapsed ${isActive('/products') ? 'active' : ''}`} href="/products">Products</a>
+                                            <a className={`${isActive('/products') ? 'active' : 'collapsed'}`} href="/products">Products</a>
                                         </li>
                                         <li className='nav-item'>
-                                            <a className={`dd-menu collapsed ${isActive('/how-it-works') ? 'active' : ''}`} href="/how-it-works">How It Works</a>
+                                            <a className={`${isActive('/how-it-works') ? 'active' : 'collapsed'}`} href="/how-it-works">How It Works</a>
                                         </li>
                                     </ul>
                                 </div>
