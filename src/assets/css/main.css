@@ -4495,7 +4495,7 @@ blockquote .shape {
 .newsletter {
   padding: 80px;
   background-color: #5830E0;
-  background-image: url(../images/newsletter/newsletter-bg.png);
+  background-image: url('https://demo.graygrids.com/themes/classigrids/assets/images/newsletter/newsletter-bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
