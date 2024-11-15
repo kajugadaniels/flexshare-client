@@ -2,10 +2,10 @@ import React from 'react'
 
 const Hero = () => {
     return (
-        <section className="hero-area overlay">
+        <section className="hero-area style3 overlay">
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-10 offset-lg-1 col-md-12 col-12">
+                    <div className="col-12">
                         <div className="hero-text text-center">
                             <div className="section-heading">
                                 <h2 className="wow fadeInUp" data-wow-delay=".3s">
@@ -15,7 +15,25 @@ const Hero = () => {
                                     Rent the latest gadgets when you need them. FlexShare makes accessing <br /> cutting-edge technology easy and affordable—no ownership required!
                                 </p>
                             </div>
-                            <div className="search-form wow fadeInUp" data-wow-delay=".7s">
+                            <div className="categories style2">
+                                <div className="row">
+                                    <div className="col-lg-8 offset-lg-2 col-md-12 col-12">
+                                        <div className="row">
+                                            <div className="col-lg-3 col-md-3  col-12">
+                                                <a href="category.html" className="single-cat wow fadeInUp"
+                                                    data-wow-delay=".4s">
+                                                    <div className="icon">
+                                                        <img src="https://demo.graygrids.com/themes/classigrids/assets/images/categories/travel.svg" alt="#" />
+                                                    </div>
+                                                    <h3>Vehicle</h3>
+                                                    <h5 className="total">35</h5>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="search-form">
                                 <div className="row">
                                     <div className="col-lg-4 col-md-4 col-12 p-0">
                                         <div className="search-input">
