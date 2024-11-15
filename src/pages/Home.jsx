@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Hero } from '../components'
+import { Hero, Newsletter } from '../components'
 
 const Home = () => {
     const [activeTab, setActiveTab] = useState('latest');
@@ -420,6 +420,8 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
+            <Newsletter />
         </>
     )
 }
