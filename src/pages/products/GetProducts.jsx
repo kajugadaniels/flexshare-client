@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductSidebar from '../../components/ProductSidebar'
+import { Newsletter, ProductSidebar } from '../../components'
 
 const GetProducts = () => {
     return (
@@ -93,6 +93,8 @@ const GetProducts = () => {
                     </div>
                 </div>
             </section>
+
+            <Newsletter />
         </>
     )
 }
