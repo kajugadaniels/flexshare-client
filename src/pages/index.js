@@ -11,3 +11,5 @@ export { default as Contact } from './Contact'
 
 export { default as Dashboard } from './profile/Dashboard'
 export { default as Profile } from './profile/Profile'
+
+export { default as GetItems } from './profile/items/GetItems'
