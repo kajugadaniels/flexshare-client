@@ -1,5 +1,5 @@
 import React from 'react'
-import { Contact, Dashboard, GetItems, GetProductDetails, GetProducts, Home, HowItWorks, Login, Profile, Register, WhoWeAre } from './pages'
+import { AddItem, Contact, Dashboard, GetItems, GetProductDetails, GetProducts, Home, HowItWorks, Login, Profile, Register, WhoWeAre } from './pages'
 import UserLayout from './layouts/UserLayout'
 import { Route, Routes } from 'react-router-dom'
 import ProfileLayout from './layouts/ProfileLayout'
@@ -24,6 +24,7 @@ const AppRoutes = () => {
                 <Route path="/profile" element={<Profile />} />
 
                 <Route path="/items" element={<GetItems />} />
+                <Route path="/item/add" element={<AddItem />} />
             </Route>
         </Routes>
     )
