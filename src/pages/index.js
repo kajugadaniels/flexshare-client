@@ -8,3 +8,5 @@ export { default as Home } from './Home'
 export { default as WhoWeAre } from './WhoWeAre'
 export { default as HowItWorks } from './HowItWorks'
 export { default as Contact } from './Contact'
+
+export { default as Dashboard } from './profile/Dashboard'
