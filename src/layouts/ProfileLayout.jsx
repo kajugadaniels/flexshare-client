@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { Footer, Header } from '../components'
+import { Footer, Header, ProfileSidebar } from '../components'
 
 const ProfileLayout = () => {
     return (
@@ -37,7 +37,7 @@ const ProfileLayout = () => {
                 <div class="container">
                     <div class="row">
                         <div className="col-lg-3 col-md-4 col-12">
-                        
+                            <ProfileSidebar />
                         </div>
                         <div class="col-lg-9 col-md-8 col-12">
                             <Outlet />
