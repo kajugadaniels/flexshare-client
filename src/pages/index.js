@@ -15,3 +15,5 @@ export { default as Profile } from './profile/Profile'
 export { default as GetItems } from './profile/items/GetItems'
 export { default as AddItem } from './profile/items/AddItem'
 export { default as EditItem } from './profile/items/EditItem'
+
+export { default as GetFavoriteItems } from './profile/GetFavoriteItems'
