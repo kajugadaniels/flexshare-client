@@ -2,6 +2,7 @@ import React from 'react'
 import { Contact, Dashboard, GetProductDetails, GetProducts, Home, HowItWorks, Login, Register, WhoWeAre } from './pages'
 import UserLayout from './layouts/UserLayout'
 import { Route, Routes } from 'react-router-dom'
+import ProfileLayout from './layouts/ProfileLayout'
 
 const AppRoutes = () => {
     return (
