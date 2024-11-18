@@ -49,18 +49,19 @@ const Login = () => {
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-6 col-12">
-                                                <a href="javascript:void(0)" className="lost-pass">Lost your password?</a>
+                                                <a href="javascript:void(0)" className="lost-pass">
+                                                    Lost your password?
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="button">
-                                        <button type="submit" className="btn">Login Now</button>
+                                        <button type="submit" className="btn">
+                                            Login Now
+                                        </button>
                                     </div>
                                     <p className="outer-link">
-                                        Don't have an account?
-                                        <a href="/register">
-                                            Register here
-                                        </a>
+                                        Don't have an account? <a href="/register">Register here</a>
                                     </p>
                                 </form>
                             </div>
