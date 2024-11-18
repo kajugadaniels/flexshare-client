@@ -17,3 +17,4 @@ export { default as AddItem } from './profile/items/AddItem'
 export { default as EditItem } from './profile/items/EditItem'
 
 export { default as GetFavoriteItems } from './profile/GetFavoriteItems'
+export { default as GetInvoices } from './profile/GetInvoices'
