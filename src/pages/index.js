@@ -10,3 +10,4 @@ export { default as HowItWorks } from './HowItWorks'
 export { default as Contact } from './Contact'
 
 export { default as Dashboard } from './profile/Dashboard'
+export { default as Profile } from './profile/Profile'
