@@ -1,5 +1,5 @@
 import React from 'react'
-import { Contact, GetProductDetails, GetProducts, Home, HowItWorks, Login, Register, WhoWeAre } from './pages'
+import { Contact, Dashboard, GetProductDetails, GetProducts, Home, HowItWorks, Login, Register, WhoWeAre } from './pages'
 import UserLayout from './layouts/UserLayout'
 import { Route, Routes } from 'react-router-dom'
 
@@ -17,6 +17,9 @@ const AppRoutes = () => {
 
                 <Route path="/products" element={<GetProducts />} />
                 <Route path="/product/:slug" element={<GetProductDetails />} />
+            </Route>
+            <Route element={<ProfileLayout />}>
+                <Route path="/dashboard" element={<Dashboard />} />
             </Route>
         </Routes>
     )
