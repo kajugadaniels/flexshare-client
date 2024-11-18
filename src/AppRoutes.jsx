@@ -25,7 +25,7 @@ const AppRoutes = () => {
 
                 <Route path="/items" element={<GetItems />} />
                 <Route path="/item/add" element={<AddItem />} />
-                <Route path="/item/edit/:id" element={<EditItem />} />
+                <Route path="/item/edit/:slug" element={<EditItem />} />
 
                 <Route path="/favorite-items" element={<GetFavoriteItems />} />
 
