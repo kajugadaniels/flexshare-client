@@ -93,3 +93,40 @@ export const passwordReset = async (emailOrPhone) => {
         };
     }
 };
+
+/**
+ * Confirm password reset by verifying OTP and setting new password.
+ * @param {string} emailOrPhone - User's email or phone number
+ * @param {string} otp - One-Time Password received by user
+ * @param {string} newPassword - New password to set
+ * @returns {Object} - Success message or error message
+ */
+
+export const passwordResetConfirm = async (emailOrPhone, otp, newPassword) => {
+    try {
+        const response = await api.post('/auth/password-reset-confirm/', {
+            email_or_phone: emailOrPhone,
+            otp,
+            password: newPassword,
+        });
+        return {
+            success: true,
+            message: response.data.message,
+        };
+    } catch (error) {
+        let message = 'An error occurred during password reset confirmation. Please try again.';
+        if (error.response) {
+            if (error.response.data.non_field_errors) {
+                message = error.response.data.non_field_errors.join(' ');
+            } else if (error.response.data.detail) {
+                message = error.response.data.detail;
+            } else if (error.response.data.error) {
+                message = error.response.data.error;
+            }
+        }
+        return {
+            success: false,
+            message,
+        };
+    }
+};
