@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { registerUser } from '../../api'; // Ensure the registerUser function is correctly imported
 import { GoogleLogin } from '@react-oauth/google'; // Import GoogleLogin component
-import jwt_decode from 'jwt-decode'; // Import jwt-decode to decode Google token
+import jwt_decode from 'jwt-decode';
 
 const Register = () => {
     const navigate = useNavigate();
