@@ -34,6 +34,11 @@ export const login = async (payload) => { // Accept a single payload object
     }
 };
 
+/**
+ * Register a new user.
+ * @param {Object} data - User registration data
+ * @returns {Object} - User data and token or error message
+ */
 
 export const registerUser = async (data) => {
     try {
@@ -42,81 +47,17 @@ export const registerUser = async (data) => {
                 Authorization: `Token ${localStorage.getItem('token')}`,
             },
         });
-        return response.data;
-    } catch (error) {
-        throw error.response
-            ? error.response.data
-            : new Error('An error occurred while adding the user.');
-    }
-};
-
-export const passwordReset = async (emailOrPhone) => {
-    try {
-        const response = await api.post('/auth/password-reset/', { email_or_phone: emailOrPhone });
         return {
             success: true,
-            message: response.data.message,
+            data: response.data,
         };
     } catch (error) {
-        let message = 'An error occurred during password reset request. Please try again.';
+        let message = 'An error occurred while registering. Please try again.';
         if (error.response) {
-            message = error.response.data.error || error.response.data.detail || message;
-        }
-        return {
-            success: false,
-            message,
-        };
-    }
-};
-
-export const passwordResetConfirm = async (emailOrPhone, otp, newPassword) => {
-    try {
-        const response = await api.post('/auth/password-reset-confirm/', {
-            email_or_phone: emailOrPhone,
-            otp,
-            password: newPassword,
-        });
-        return {
-            success: true,
-            message: response.data.message,
-        };
-    } catch (error) {
-        let message = 'An error occurred during password reset confirmation. Please try again.';
-        if (error.response) {
-            if (error.response.data.non_field_errors) {
-                message = error.response.data.non_field_errors.join(' ');
-            } else if (error.response.data.detail) {
-                message = error.response.data.detail;
-            } else {
-                message = error.response.data.error || message;
+            message = error.response.data.message || 'Registration failed.';
+            if (error.response.data.errors) {
+                message += ' ' + Object.values(error.response.data.errors).flat().join(' ');
             }
-        }
-        return {
-            success: false,
-            message,
-        };
-    }
-};
-
-export const logout = async (token) => {
-    try {
-        const response = await api.post(
-            '/auth/logout/',
-            {},
-            {
-                headers: {
-                    Authorization: `Token ${token}`,
-                },
-            }
-        );
-        return {
-            success: true,
-            message: response.data.message,
-        };
-    } catch (error) {
-        let message = 'An error occurred during logout. Please try again.';
-        if (error.response) {
-            message = error.response.data.error || error.response.data.detail || message;
         }
         return {
             success: false,
