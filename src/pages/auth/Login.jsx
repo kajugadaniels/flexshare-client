@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../api';
 import { toast } from 'react-toastify';
+import validator from 'validator';
 
 const Login = () => {
-    const [identifier, setIdentifier] = useState(''); 
+    const [identifier, setIdentifier] = useState(''); // Changed from 'email' to 'identifier'
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -18,14 +19,55 @@ const Login = () => {
         }
     }, []);
 
+    /**
+     * Validates the login form inputs.
+     * @returns {boolean} - Returns true if the form is valid, else false.
+     */
+    const validateForm = () => {
+        if (!identifier.trim()) {
+            toast.error('Please enter your email or phone number.');
+            return false;
+        }
+
+        if (!password) {
+            toast.error('Please enter your password.');
+            return false;
+        }
+
+        if (identifier.includes('@')) {
+            if (!validator.isEmail(identifier)) {
+                toast.error('Please enter a valid email address.');
+                return false;
+            }
+        } else {
+            // Simple phone number validation (international format)
+            const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+            if (!phoneRegex.test(identifier)) {
+                toast.error('Please enter a valid phone number.');
+                return false;
+            }
+        }
+
+        return true;
+    };
+
+    /**
+     * Handles the login form submission.
+     * @param {Object} e - Event object
+     */
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
+
         setLoading(true);
 
         try {
             // Prepare the payload with 'identifier' and 'password'
             const payload = {
-                identifier: identifier.trim(), // Remove any leading/trailing spaces
+                identifier: identifier.trim(),
                 password: password
             };
 
@@ -81,8 +123,9 @@ const Login = () => {
                                 <h4 className="title">Login</h4>
                                 <form onSubmit={handleLogin}>
                                     <div className="form-group">
-                                        <label>Phone Number or Email Address</label>
+                                        <label htmlFor="identifier">Phone Number or Email Address</label>
                                         <input
+                                            id="identifier"
                                             name="identifier"
                                             type="text" // Changed from 'email' to 'text' to accept phone numbers
                                             value={identifier}
@@ -92,8 +135,9 @@ const Login = () => {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label>Password</label>
+                                        <label htmlFor="password">Password</label>
                                         <input
+                                            id="password"
                                             name="password"
                                             type="password"
                                             value={password}
