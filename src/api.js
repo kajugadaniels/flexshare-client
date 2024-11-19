@@ -67,38 +67,6 @@ export const registerUser = async (data) => {
 };
 
 /**
- * Social Login function to handle OAuth tokens.
- * @param {string} provider - The social provider ('google', 'facebook').
- * @param {string} accessToken - The OAuth access token from the provider.
- * @returns {Object} - success, data, message.
- */
-export const socialLogin = async (provider, accessToken) => {
-    try {
-        const response = await api.post(`social/${provider}/`, {
-            access_token: accessToken,
-        });
-        return {
-            success: true,
-            data: response.data,
-            message: response.data.message || 'Social login successful.',
-        };
-    } catch (error) {
-        let message = 'An error occurred during social login. Please try again.';
-        if (error.response) {
-            message = error.response.data.detail || 'Social login failed.';
-            if (error.response.data.errors) {
-                const errorMessages = Object.values(error.response.data.errors).flat().join(' ');
-                message += ` ${errorMessages}`;
-            }
-        }
-        return {
-            success: false,
-            message,
-        };
-    }
-};
-
-/**
  * Initiate password reset by sending OTP to email or phone.
  * @param {string} emailOrPhone - User's email or phone number
  * @returns {Object} - Success message or error message
