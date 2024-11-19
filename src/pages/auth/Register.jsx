@@ -159,6 +159,18 @@ const Register = () => {
                             <div className="form-head">
                                 <h4 className="title">Sign Up</h4>
                                 <form onSubmit={handleSubmit}>
+                                    <div class="socila-login">
+                                        <ul>
+                                            <li>
+                                                <a href="javascript:void(0)" class="google">
+                                                    <i class="lni lni-google"></i>Import From google
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="alt-option">
+                                        <span>Or</span>
+                                    </div>
                                     <div className="form-group">
                                         <label htmlFor="name">Name</label>
                                         <input

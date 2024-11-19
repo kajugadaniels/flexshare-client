@@ -127,7 +127,7 @@ const Login = () => {
                                         <input
                                             id="identifier"
                                             name="identifier"
-                                            type="text" // Changed from 'email' to 'text' to accept phone numbers
+                                            type="text"
                                             value={identifier}
                                             onChange={(e) => setIdentifier(e.target.value)}
                                             placeholder="Enter your email or phone number"
@@ -177,12 +177,6 @@ const Login = () => {
                                     </div>
                                     <div className="socila-login">
                                         <ul>
-                                            <li>
-                                                <a href="javascript:void(0)" className="facebook">
-                                                    <i className="lni lni-facebook-original"></i>
-                                                    Login With Facebook
-                                                </a>
-                                            </li>
                                             <li>
                                                 <a href="javascript:void(0)" className="google">
                                                     <i className="lni lni-google"></i>
