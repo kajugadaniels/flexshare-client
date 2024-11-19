@@ -28,6 +28,21 @@ export const login = async (email, password) => {
     }
 };
 
+export const registerUser = async (data) => {
+    try {
+        const response = await api.post('/auth/register/', data, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response
+            ? error.response.data
+            : new Error('An error occurred while adding the user.');
+    }
+};
+
 export const passwordReset = async (emailOrPhone) => {
     try {
         const response = await api.post('/auth/password-reset/', { email_or_phone: emailOrPhone });
