@@ -65,3 +65,31 @@ export const registerUser = async (data) => {
         };
     }
 };
+
+/**
+ * Initiate password reset by sending OTP to email or phone.
+ * @param {string} emailOrPhone - User's email or phone number
+ * @returns {Object} - Success message or error message
+ */
+
+export const passwordReset = async (emailOrPhone) => {
+    try {
+        const response = await api.post('/auth/password-reset/', { email_or_phone: emailOrPhone });
+        return {
+            success: true,
+            message: response.data.message,
+        };
+    } catch (error) {
+        let message = 'An error occurred during password reset request. Please try again.';
+        if (error.response) {
+            message = error.response.data.error || error.response.data.detail || message;
+            if (error.response.data.non_field_errors) {
+                message = error.response.data.non_field_errors.join(' ');
+            }
+        }
+        return {
+            success: false,
+            message,
+        };
+    }
+};
