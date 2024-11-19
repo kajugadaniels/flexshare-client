@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { registerUser } from '../../api'; // Ensure the registerUser function is correctly imported
+import { GoogleLogin } from '@react-oauth/google'; // Import GoogleLogin component
+import jwt_decode from 'jwt-decode'; // Import jwt-decode to decode Google token
 
 const Register = () => {
     const navigate = useNavigate();
@@ -109,19 +111,54 @@ const Register = () => {
     };
 
     /**
-     * Toggles the navigation bar expansion for mobile view.
+     * Handles successful Google authentication.
+     * @param {Object} credentialResponse - The response from Google after authentication.
      */
-    const toggleNavbar = () => {
-        // Implementation remains the same as in your original Header component
+    const handleGoogleSuccess = async (credentialResponse) => {
+        if (credentialResponse.credential) {
+            try {
+                // Decode the JWT credential to extract user information
+                const decoded = jwt_decode(credentialResponse.credential);
+                const { name, email, sub } = decoded;
+
+                // Prepare data to send to your backend
+                const googleData = {
+                    name: name,
+                    email: email,
+                    google_id: sub, // 'sub' is the unique identifier for the Google user
+                    // You might want to generate a password or handle it differently
+                };
+
+                // Send the Google data to your backend to handle authentication
+                const response = await registerUser(googleData); // Ensure your backend can handle Google registration
+
+                if (response.success) {
+                    toast.success(response.message || 'Google Registration successful!');
+                    // Store token and user data in localStorage
+                    localStorage.setItem('token', response.data.token);
+                    localStorage.setItem('user', JSON.stringify(response.data.user));
+                    // Redirect to dashboard
+                    navigate('/dashboard');
+                } else {
+                    // Handle backend validation errors
+                    toast.error(response.message || 'Google Registration failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Google Registration error:', error);
+                toast.error('An unexpected error occurred during Google Registration. Please try again.');
+            }
+        } else {
+            toast.error('Google Authentication failed. Please try again.');
+        }
     };
 
     /**
-     * Determines if the given path is active based on the current location.
-     * @param {string} path - The path to check.
-     * @returns {boolean} - True if the path is active, else false.
+     * Handles failed Google authentication.
+     * @param {Object} error - The error object from Google.
      */
-    const isActive = (path) => {
-        // Implementation remains the same as in your original Header component
+    const handleGoogleFailure = (error) => {
+        console.error('Google Authentication error:', error);
+        toast.error('Google Authentication failed. Please try again.');
     };
 
     return (
@@ -139,9 +176,9 @@ const Register = () => {
                         <div className="col-lg-6 col-md-6 col-12">
                             <ul className="breadcrumb-nav">
                                 <li>
-                                    <a href="/"> {/* Changed to Link for client-side routing */}
+                                    <Link to="/"> {/* Changed to Link for client-side routing */}
                                         Home
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
                                     Sign Up
@@ -159,18 +196,23 @@ const Register = () => {
                             <div className="form-head">
                                 <h4 className="title">Sign Up</h4>
                                 <form onSubmit={handleSubmit}>
-                                    <div class="socila-login">
+                                    {/* Google Sign-In Button */}
+                                    <div className="social-login">
                                         <ul>
                                             <li>
-                                                <a href="javascript:void(0)" class="google">
-                                                    <i class="lni lni-google"></i>Import From google
-                                                </a>
+                                                <GoogleLogin
+                                                    onSuccess={handleGoogleSuccess}
+                                                    onError={handleGoogleFailure}
+                                                    useOneTap
+                                                />
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="alt-option">
+                                    {/* Divider */}
+                                    <div className="alt-option">
                                         <span>Or</span>
                                     </div>
+                                    {/* Registration Form Fields */}
                                     <div className="form-group">
                                         <label htmlFor="name">Name</label>
                                         <input
@@ -256,7 +298,7 @@ const Register = () => {
                                                         required
                                                     />
                                                     <label className="form-check-label" htmlFor="agreeToTerms">
-                                                        Agree to our <a href="/terms-and-conditions">Terms and Conditions</a>
+                                                        Agree to our <Link to="/terms-and-conditions">Terms and Conditions</Link> {/* Changed to Link */}
                                                     </label>
                                                 </div>
                                             </div>
@@ -268,7 +310,7 @@ const Register = () => {
                                         </button>
                                     </div>
                                     <p className="outer-link">
-                                        Already have an account? <a href="/login">Login Now</a>
+                                        Already have an account? <Link to="/login">Login Now</Link> {/* Changed to Link */}
                                     </p>
                                 </form>
                             </div>
