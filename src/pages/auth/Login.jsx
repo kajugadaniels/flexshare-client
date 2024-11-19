@@ -1,6 +1,54 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { login } from '../../api';
+import { toast } from 'react-toastify';
 
 const Login = () => {
+    const [identifier, setIdentifier] = useState(''); 
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            toast.info('You have been logged out.');
+        }
+    }, []);
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            // Prepare the payload with 'identifier' and 'password'
+            const payload = {
+                identifier: identifier.trim(), // Remove any leading/trailing spaces
+                password: password
+            };
+
+            const response = await login(payload); // Pass the payload object
+
+            const { success, data, message } = response;
+
+            if (success) {
+                toast.success('Login successful!');
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                navigate('/dashboard');
+            } else {
+                toast.error(message);
+            }
+        } catch (error) {
+            // This block is redundant since errors are handled in the login function
+            toast.error('An error occurred during login');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <>
             <div className="breadcrumbs">
@@ -14,9 +62,9 @@ const Login = () => {
                         <div className="col-lg-6 col-md-6 col-12">
                             <ul className="breadcrumb-nav">
                                 <li>
-                                    <a href="/">
+                                    <Link to="/">
                                         Home
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>Login</li>
                             </ul>
@@ -31,37 +79,57 @@ const Login = () => {
                         <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
                             <div className="form-head">
                                 <h4 className="title">Login</h4>
-                                <form>
+                                <form onSubmit={handleLogin}>
                                     <div className="form-group">
-                                        <label>Username or email</label>
-                                        <input name="email" type="email" />
+                                        <label>Phone Number or Email Address</label>
+                                        <input
+                                            name="identifier"
+                                            type="text" // Changed from 'email' to 'text' to accept phone numbers
+                                            value={identifier}
+                                            onChange={(e) => setIdentifier(e.target.value)}
+                                            placeholder="Enter your email or phone number"
+                                            required
+                                        />
                                     </div>
                                     <div className="form-group">
                                         <label>Password</label>
-                                        <input name="password" type="password" />
+                                        <input
+                                            name="password"
+                                            type="password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            placeholder="Enter your password"
+                                            required
+                                        />
                                     </div>
                                     <div className="check-and-pass">
                                         <div className="row align-items-center">
                                             <div className="col-lg-6 col-md-6 col-12">
                                                 <div className="form-check">
-                                                    <input type="checkbox" className="form-check-input width-auto" />
-                                                    <label className="form-check-label">Remember me</label>
+                                                    <input 
+                                                        type="checkbox" 
+                                                        className="form-check-input width-auto" 
+                                                        id="rememberMe"
+                                                    />
+                                                    <label className="form-check-label" htmlFor="rememberMe">
+                                                        Remember me
+                                                    </label>
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-6 col-12">
-                                                <a href="javascript:void(0)" className="lost-pass">
+                                                <Link to="/password-reset" className="lost-pass">
                                                     Lost your password?
-                                                </a>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="button">
-                                        <button type="submit" className="btn">
-                                            Login Now
+                                        <button type="submit" className="btn" disabled={loading}>
+                                            {loading ? 'Signing In...' : 'Sign In'}
                                         </button>
                                     </div>
                                     <p className="outer-link">
-                                        Don't have an account? <a href="/register">Register here</a>
+                                        Don't have an account? <Link to="/register">Register here</Link>
                                     </p>
                                 </form>
                             </div>
@@ -73,4 +141,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login;
