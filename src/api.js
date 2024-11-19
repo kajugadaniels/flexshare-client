@@ -42,21 +42,21 @@ export const login = async (payload) => { // Accept a single payload object
 
 export const registerUser = async (data) => {
     try {
-        const response = await api.post('/auth/register/', data, {
-            headers: {
-                Authorization: `Token ${localStorage.getItem('token')}`,
-            },
-        });
+        const response = await api.post('/auth/register/', data);
         return {
             success: true,
-            data: response.data,
+            data: response.data, // Should contain user data and token
+            message: response.data.message || 'Registration successful.',
         };
     } catch (error) {
         let message = 'An error occurred while registering. Please try again.';
         if (error.response) {
+            // Extract error message from backend response
             message = error.response.data.message || 'Registration failed.';
             if (error.response.data.errors) {
-                message += ' ' + Object.values(error.response.data.errors).flat().join(' ');
+                // Concatenate all error messages
+                const errorMessages = Object.values(error.response.data.errors).flat().join(' ');
+                message += ` ${errorMessages}`;
             }
         }
         return {

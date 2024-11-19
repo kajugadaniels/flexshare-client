@@ -139,9 +139,9 @@ const Register = () => {
                         <div className="col-lg-6 col-md-6 col-12">
                             <ul className="breadcrumb-nav">
                                 <li>
-                                    <Link to="/"> {/* Changed to Link for client-side routing */}
+                                    <a href="/"> {/* Changed to Link for client-side routing */}
                                         Home
-                                    </Link>
+                                    </a>
                                 </li>
                                 <li>
                                     Sign Up
@@ -244,7 +244,7 @@ const Register = () => {
                                                         required
                                                     />
                                                     <label className="form-check-label" htmlFor="agreeToTerms">
-                                                        Agree to our <Link to="/terms-and-conditions">Terms and Conditions</Link> {/* Changed to Link */}
+                                                        Agree to our <a href="/terms-and-conditions">Terms and Conditions</a>
                                                     </label>
                                                 </div>
                                             </div>
@@ -256,7 +256,7 @@ const Register = () => {
                                         </button>
                                     </div>
                                     <p className="outer-link">
-                                        Already have an account? <Link to="/login">Login Now</Link> {/* Changed to Link */}
+                                        Already have an account? <a href="/login">Login Now</a>
                                     </p>
                                 </form>
                             </div>
