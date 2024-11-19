@@ -150,9 +150,9 @@ const Login = () => {
                                         <div className="row align-items-center">
                                             <div className="col-lg-6 col-md-6 col-12">
                                                 <div className="form-check">
-                                                    <input 
-                                                        type="checkbox" 
-                                                        className="form-check-input width-auto" 
+                                                    <input
+                                                        type="checkbox"
+                                                        className="form-check-input width-auto"
                                                         id="rememberMe"
                                                     />
                                                     <label className="form-check-label" htmlFor="rememberMe">
@@ -171,6 +171,25 @@ const Login = () => {
                                         <button type="submit" className="btn" disabled={loading}>
                                             {loading ? 'Signing In...' : 'Sign In'}
                                         </button>
+                                    </div>
+                                    <div className="alt-option">
+                                        <span>Or</span>
+                                    </div>
+                                    <div className="socila-login">
+                                        <ul>
+                                            <li>
+                                                <a href="javascript:void(0)" className="facebook">
+                                                    <i className="lni lni-facebook-original"></i>
+                                                    Login With Facebook
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)" className="google">
+                                                    <i className="lni lni-google"></i>
+                                                    Login With Google
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
                                     <p className="outer-link">
                                         Don't have an account? <Link to="/register">Register here</Link>
