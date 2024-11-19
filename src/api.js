@@ -130,3 +130,36 @@ export const passwordResetConfirm = async (emailOrPhone, otp, newPassword) => {
         };
     }
 };
+
+/**
+ * Logout the user by deleting the authentication token.
+ * @param {string} token - User's authentication token
+ * @returns {Object} - Success message or error message
+ */
+
+export const logout = async (token) => {
+    try {
+        const response = await api.post(
+            '/auth/logout/',
+            {},
+            {
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            }
+        );
+        return {
+            success: true,
+            message: response.data.message,
+        };
+    } catch (error) {
+        let message = 'An error occurred during logout. Please try again.';
+        if (error.response) {
+            message = error.response.data.error || error.response.data.detail || message;
+        }
+        return {
+            success: false,
+            message,
+        };
+    }
+};
