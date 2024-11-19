@@ -1,5 +1,5 @@
 import React from 'react'
-import { AddItem, Contact, Dashboard, EditItem, GetFavoriteItems, GetInvoices, GetItems, GetProductDetails, GetProducts, Home, HowItWorks, Login, Profile, Register, WhoWeAre } from './pages'
+import { AddItem, Contact, Dashboard, EditItem, GetFavoriteItems, GetInvoices, GetItems, GetProductDetails, GetProducts, Home, HowItWorks, Login, NotFound, Profile, Register, WhoWeAre } from './pages'
 import UserLayout from './layouts/UserLayout'
 import { Route, Routes } from 'react-router-dom'
 import ProfileLayout from './layouts/ProfileLayout'
@@ -19,6 +19,7 @@ const AppRoutes = () => {
                 <Route path="/products" element={<GetProducts />} />
                 <Route path="/product/:slug" element={<GetProductDetails />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
             <Route element={<ProfileLayout />}>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/profile" element={<Profile />} />
