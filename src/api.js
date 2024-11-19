@@ -9,9 +9,14 @@ const api = axios.create({
     },
 });
 
-export const login = async (payload) => {
+/**
+ * Login function to authenticate user using identifier and password.
+ * @param {Object} payload - Contains identifier (email or phone) and password
+ * @returns {Object} - success, data, message
+ */
+export const login = async (payload) => { // Accept a single payload object
     try {
-        const response = await api.post('/auth/login/', payload);
+        const response = await api.post('/auth/login/', payload); // Sends { identifier, password }
         return {
             success: true,
             data: response.data,
@@ -19,6 +24,7 @@ export const login = async (payload) => {
     } catch (error) {
         let message = 'An error occurred during login. Please try again.';
         if (error.response) {
+            // Extract error message from backend response
             message = error.response.data.error || error.response.data.detail || message;
         }
         return {
@@ -27,6 +33,7 @@ export const login = async (payload) => {
         };
     }
 };
+
 
 export const registerUser = async (data) => {
     try {
